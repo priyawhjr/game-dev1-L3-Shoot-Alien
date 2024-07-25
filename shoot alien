@@ -1,0 +1,89 @@
+import pgzrun
+from random import randint
+
+TITLE = "Shoot the Alien" # to add title in output screen
+WIDTH , HEIGHT = 500, 500 # output screen size
+
+msg = "" # variable to store msg on screen
+
+alien = Actor("alien") # creating alien using Actor()
+#alien.pos = 50,50 # left top position. delete this line as we want to place alien at some random place.
+def draw(): # to update the screen
+    screen.clear() # to clear screen
+    screen.fill(color=(128,0,0)) # output screen color
+    
+    alien.draw() # to make alien visible
+    screen.draw.text(msg, center = (250,15),fontsize=30,color='yellow')
+
+def place_alien(): # func to get random position of alien
+    alien.x = randint(100, WIDTH-100)
+    alien.y = randint(50, HEIGHT-100)
+
+def on_mouse_down(pos):
+    global msg
+    if alien.collidepoint(pos):
+        msg = "GOOD SHOT!"
+        place_alien() # to chg alien location, each time u hit alien
+    else:
+        msg = "You Missed the Shot. TRY AGAIN"
+
+place_alien() # to not to chg alien location, if u miss the shot(alien).
+
+pgzrun.go()
+
+
+
+
+# Watch this -> https://www.udemy.com/course/python-game-development-with-pygame-zero/learn/lecture/21573666#overview
+# Username - abhishek.bahl@gmail.com, 
+#Password - Lkkw2(&yA(#W5AA
+
+'''Class Notes:GoodShot Game
+
+Key Learnings : 
+GoodShot Game (Basic Structure, Functions and Events)
+
+Actors: 
+
+In pgzero, actors are objects or characters displayed on the screen, capable of interaction with each other and the player.
+Actors are created using the Actor class provided by the pgzero library.
+Images for actors should be stored in the images folder within the project directory.
+
+player = Actor("player_image")
+Player.pos = (100,100)
+
+def draw():
+    player.draw()
+
+
+Functions: 
+
+A function is a block of organised, reusable code that performs a specific task.
+To define a function in Python, you use the def keyword followed by the function name, a set of parentheses that may include parameters, and a colon. 
+The code inside the function must be indented, and you can use the return keyword to return a value from the function.
+
+def add(a, b):
+    result = a + b
+    return result
+
+sum = add(2, 3)
+print(sum) 
+
+
+Events: 
+
+In pgzero, "events" refer to various actions or inputs that
+occur in the game, such as keyboard presses, mouse clicks, and 
+window close events. You can detect and respond to events using 
+the various event-related functions provided by pgzero.
+on_mouse_down(pos): Called when a mouse button is pressed. 
+The pos argument is a tuple of (x, y) mouse coordinates
+
+
+Collision: 
+
+In pgzero, you can detect collisions between actors and target positions using the collidepoint method. 
+This method returns True if the specified point (given as a tuple of (x, y) coordinates) is inside the actor's image, and False otherwise.
+
+if player.collidepoint(pos)
+'''
